@@ -6,10 +6,12 @@ import {Typography} from '@mui/material'
 
 const ContactComponent =(props) => {
   const { userData } = props;
+ 
   return ( 
     
     <Box>
-      <Avatar  src={userData.profilePic}/>
+      <Avatar src={userData.profilePic}/>
+      
       <Box display="flex" justifyContent="space-between" width="100%">
           <Typography variant="body1" color="#d1d7db">
               {userData.name} 

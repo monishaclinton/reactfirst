@@ -4,7 +4,7 @@ export const contactList = [
   {
     id: 1,
     name: "Anubhav Sharma",
-    profilePic: "../asserts/pp1.png",
+    profilePic: "/asserts/pp1.png",
     lastText: "Hey Man",
     lastTextTime: "12:58 PM",
   },
@@ -90,7 +90,7 @@ export const messagesList = [
   {
     id: 5,
     messageType: "TEXT",
-    text: "Subscribed to Simplilarn",
+    text: "LOVE U",
     senderID: 1,
     addedOn: "12:00 PM",
   },
