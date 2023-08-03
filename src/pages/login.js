@@ -41,8 +41,8 @@ export default function Login() {
 
            <img src={require('../asserts/cupid-heart.jpg')} alt="logo" width={150} height={150}/>
           <Box component="form" onSubmit={handleSubmit} >
-            <TextField margin="normal" fullWidth id="email" label="Email Address" name="email" autoComplete="email" autoFocus />
-            <TextField margin="normal" fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" />
+            <TextField margin="normal" fullWidth id="email" label="Email Address" name="email" autoComplete="email" autoFocus  required/>
+            <TextField margin="normal" fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" required />
             <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" /><br />
             <Grid container spacing={2}><Grid item xs > <Button type="submit" variant="outlined"> Login with OTP </Button></Grid>
               <Grid item ><Button type="submit" variant="contained" onClick={routeToChatbox} target="_blank"> Log In </Button></Grid></Grid>
