@@ -12,25 +12,30 @@ import Axios from 'axios';
 
 
 
-function Register() {
-  const [isFormInvalid, setIsFormInvalid] = useState(false)
+function Register () {
+  const [value, setValue]= useState("");
+  const handleChange = (e) => {
+  setValue=(e.target.value);
+  console.log(e.target.value);
+ };
+  
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-     Axios.post("http://localhost:3001/user/register", data)
-      .then((response) => {
+    // const data = new FormData(event.currentTarget);
+    //  Axios.post("http://localhost:3001/user/register", data)
+    //   .then((response) => {
 
-        if (response.data.status == "success") {
-          window.location.replace('http://localhost:3000/');
-        } else {
-          setIsFormInvalid(true)
-        }
-      });
+    //     if (response.data.status == "success") {
+    //       window.location.replace('http://localhost:3000/');
+    //     } else {
+    //       setIsFormInvalid(true)
+    //     }
+    //   });
 
   };
  
     
-    
+
   return (
     <div>
 
@@ -41,7 +46,7 @@ function Register() {
 
 
           <Box component="form" onSubmit={handleSubmit} >
-            <TextField margin="normal" fullWidth id="email" label="Your Email Address" name="email" autoComplete="email" error={isFormInvalid} autoFocus  required />
+            <TextField margin="normal" value={value} fullWidth id="email" label="Your Email Address" name="email" autoComplete="email"   autoFocus  required onChange={handleChange}/>
             <TextField margin="normal" fullWidth name="password" label="Your Password"  type="password" id="password"  required/>
             <TextField margin="normal" fullWidth name="confirm_password" label="confirm Password"  type="password" id="confirm_password"  required/>
             <InputMask mask="(+99)9999999999" >
