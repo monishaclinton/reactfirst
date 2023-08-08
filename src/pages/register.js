@@ -17,7 +17,7 @@ function Register() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-     Axios.post("http://localhost:3001/user/", data)
+     Axios.post("http://localhost:3001/user/register", data)
       .then((response) => {
 
         if (response.data.status == "success") {
