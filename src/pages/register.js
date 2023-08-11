@@ -30,10 +30,13 @@ function Register() {
         })
             .then((response) => {    //response get the data from express server returned data
                 // console.log(response.data)
-                if (response.data == "success") {
+                if (response.data.affectedRows) {
                     alert("User Successfully Added")
                     window.location.replace('http://localhost:3000/');
+                } else if (response.data == "failed") {
+                    alert('This Mail Id is Already Registered');
                 } else {
+                    alert("An Error Occurred...!");
                     // setIsFormInvalid(true) 
                 }
 
