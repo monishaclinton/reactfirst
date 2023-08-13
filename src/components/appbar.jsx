@@ -14,7 +14,7 @@ const Appbar = () => {
   return (
     <div>
     <Box
-      height="45px" display="flex" align-items="center"
+      height="45px" display="flex" align-items="center"  width="94%"
       sx={{
         background: "#1f2c33",
         padding: "0px 20px",
@@ -23,23 +23,26 @@ const Appbar = () => {
 
      
     
-    <Box display="flex"  alignItems="right"  >
+  
+      <Box  width="100%"  height="100%" display="flex" justifyContent="space-between" alignItems="center">
         <IconButton onClick={() => { }}>
-          <SearchIcon
+          <SearchIcon 
             sx={{
               color: "#afbac0",
             }}
           />
         </IconButton>
-      
-        <Typography  color="white">
+        </Box>
+        <Box display="flex" flexDirection="column" alignItems="flex-start" >
+        <Typography  color="white" font-size="13px" padding="10px 0px" whiteSpace="nowrap">
           {session_username.toUpperCase()}
         </Typography>
-        <Box alignItems="right">
+        </Box>
+        <Box display="flex"  flexDirection="column" alignItems="flex-start" pl="9px">
          <Avatar />
          </Box>
        </Box>
-       </Box>
+       
        
        </div>
   );

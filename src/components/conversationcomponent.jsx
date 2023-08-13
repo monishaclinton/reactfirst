@@ -7,7 +7,7 @@ const ConversationComponent = () => {
     return (
     <Box>
         <Box>
-        <Avatar src="/profile/IMG_3464.jpg" />
+        
         Anubhav Sharma
         </Box>
         <Box>
@@ -18,7 +18,7 @@ const ConversationComponent = () => {
             ))}
             
         </Box>
-        <Box>
+        <Box alignitems="bottom">
             
             {/* <Image src={"/data.svg"}/> */}
             <Input placeholder="Type a message"/>

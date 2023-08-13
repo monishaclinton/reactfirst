@@ -22,6 +22,18 @@ function Register() {
     const handleSubmit = (event) => {
         event.preventDefault(); //ithu form submit aagi another page ku pooratha stop pannum
         // alert()
+        let password=document.getElementById("password").value;
+        let confirmpassword=document.getElementById("confirm_password").value;
+        console.log(password,confirmpassword);
+        if(password.length !=0){
+        if (password == confirmpassword) {
+            alert("password is correct")
+            window.location.replace('http://localhost:3000/');
+        
+        } else {
+            alert("Password does not match...");
+            // setIsFormInvalid(true) 
+        }}
         const data = new FormData(event.currentTarget); // to get all form datas
         Axios.post(server_base_url + "register_user", data, {   //it is use to sent the data to another server ..similar to ajax without page loading to push data in data
             headers: {
@@ -44,7 +56,9 @@ function Register() {
 
     };
 
-
+     
+        
+    
 
     return (
         <div>
@@ -52,19 +66,19 @@ function Register() {
             <Container maxWidth="xs">
 
 
-                <Box sx={{ marginTop: 20, display: 'flex', flexDirection: 'column', alignItems: 'center', }} >
+                <Box sx={{ marginTop: '5px', display: 'flex', flexDirection: 'column', alignItems: 'center', }} >
 
 
                     <Box component="form" onSubmit={handleSubmit} >
-                        <TextField margin="normal" fullWidth label="Your First Name" name="first_name" required />
-                        <TextField margin="normal" fullWidth label="Your Last Name" name="last_name" required />
-                        <TextField margin="normal" fullWidth id="email" label="Your Email Address" name="email" required />
-                        <TextField margin="normal" fullWidth name="password" label="Your Password" type="password" id="password" required />
-                        <TextField margin="normal" fullWidth name="confirm_password" label="confirm Password" type="password" id="confirm_password" required />
+                        <TextField margin="dense" fullWidth label="Your First Name" name="first_name" required variant="filled"/>
+                        <TextField margin="dense" fullWidth label="Your Last Name" name="last_name" required variant="filled"/>
+                        <TextField margin="dense"  fullWidth id="email" label="Your Email Address" name="email" required variant="filled"/>
+                        <TextField margin="dense"  fullWidth name="password" label="Your Password" type="password" id="password" required variant="filled"/>
+                        <TextField margin="dense"  fullWidth name="confirm_password" label="confirm Password" type="password" id="confirm_password" required variant="filled" />
                         <InputMask mask="(+99)9999999999" >
-                            {() => <TextField label="Your Mobile Number" fullWidth name='mobile_number' id='mobile_number' />}
+                            {() => <TextField  margin="dense" label="Your Mobile Number" fullWidth name='mobile_number' id='mobile_number' variant="filled"/>}
                         </InputMask>
-                        <TextField margin="normal" fullWidth label="Your DOB" name="date_of_birth" required />
+                        <TextField margin="dense" fullWidth label="Your DOB" name="date_of_birth" required variant="filled"/>
                         <Box > <Link href="#" > Sent OTP </Link></Box>
                         <Box sx={{ display: 'flex', flexDirection: 'row-reverse', marginTop: 1 }}> <Button type="submit" variant="contained"> Create Account </Button>
                         </Box>

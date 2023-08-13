@@ -9,10 +9,12 @@ import ContactListComponent from './contactlistcomponent';
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { Input } from '@mui/material';
 import { Avatar } from '@mui/material';
+import { useState } from 'react';
 import ChatIcon from "@mui/icons-material/Chat";
 import DonutLargeIcon from "@mui/icons-material/DonutLarge";
 
 function Leftmenu( ) {
+  
   return (
 <Box>
     <Box   height="45px" display="flex" align-items="center"

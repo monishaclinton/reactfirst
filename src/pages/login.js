@@ -10,9 +10,10 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { BrowserRouter as Router, Route, Link as Rlink, Routes, BrowserRouter, useNavigate } from "react-router-dom";
 import Register from './register';
-import asserts from '../asserts/cupid-heart.jpg'
+import asserts from '../asserts/cupid-1.png'
 import Chatcontainer from '../components/chatcontainer';
 import Axios from 'axios';
+import './home.css'
 
 
 const server_base_url = "http://localhost:3001/";
@@ -46,19 +47,19 @@ export default function Login() {
 
   return (
 
-    <div>
+    <div >
+
+    < Box width="100%" height="100%"  >
+
+      <Container id="Main" maxWidth="xs" >
 
 
+        <Box sx={{ marginTop: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center'}} >
 
-      <Container id="Main" maxWidth="xs">
-
-
-        <Box sx={{ marginTop: 20, display: 'flex', flexDirection: 'column', alignItems: 'center', }} >
-
-          <img src={require('../asserts/cupid-heart.jpg')} alt="logo" width={150} height={150} />
+          <img src={require('../asserts/cupid-1.png')} alt="logo" width={150} height={150} />
           <Box component="form" onSubmit={handleSubmit} >
-            <TextField margin="normal" fullWidth id="email" label="Email Address" name="email" autoComplete="email" autoFocus required />
-            <TextField margin="normal" fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" required />
+            <TextField margin="normal" fullWidth id="email" label="Email Address" name="email" autoComplete="email" autoFocus required text variant="filled" />
+            <TextField margin="normal" fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" required variant="filled" />
             <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" /><br />
             <Grid container spacing={2}><Grid item xs > <Button type="submit" variant="outlined"> Login with OTP </Button></Grid>
               <Grid item ><Button type="submit" variant="contained"> Log In </Button></Grid></Grid>
@@ -68,6 +69,7 @@ export default function Login() {
         </Box>
 
       </Container>
+      </Box>
     </div>
 
 

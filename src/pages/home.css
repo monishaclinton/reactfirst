@@ -1,0 +1,20 @@
+body{
+    background-color: black;
+}
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
+    color:white !important;
+
+   border:1px solid white !important;
+}
+.textfield {
+    background-color: #000;
+    color: green;
+}
+.css-10botns-MuiInputBase-input-MuiFilledInput-input{
+    border:1px solid white !important;
+    color:white !important;
+}
+.css-e4w4as-MuiFormLabel-root-MuiInputLabel-root{
+    color:white !important;
+    
+}

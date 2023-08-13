@@ -6,6 +6,8 @@ import Chatcontainer from '../components/chatcontainer';
 import { BrowserRouter as Router, Route, Link as Rlink, Routes } from "react-router-dom";
 
 function Home() {
+  
+  
   return (
 
 
@@ -13,7 +15,7 @@ function Home() {
       
       <Routes>
       
-        <Route exact path="/" element={<Login/>}/>
+        <Route exact path="/" element={<Login/>} />
         <Route exact path="/chatcontainer" element={<Chatcontainer />} />
         <Route exact path="Register" element={<Register />} />
        
