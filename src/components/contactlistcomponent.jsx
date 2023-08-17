@@ -3,10 +3,24 @@ import { contactList } from './data/contactlist';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import {Typography} from '@mui/material'
+import { useState,useEffect } from 'react';
 
 const ContactComponent =(props) => {
   const { userData } = props;
- 
+  function Contacts({ contacts, changeChat }){
+    const [currentSelected, setCurrentSelected] = useState(undefined);
+  }
+  useEffect(async () => {
+    const data = await JSON.parse(
+      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    );
+    setCurrentUserName(data.username);
+    setCurrentUserImage(data.avatarImage);
+  }, []);
+  const changeCurrentChat = (index, contact) => {
+    setCurrentSelected(index);
+    changeChat(contact);
+  };
   return ( 
     
     <Box>

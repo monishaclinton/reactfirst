@@ -31,7 +31,7 @@ function Register() {
             window.location.replace('http://localhost:3000/');
         
         } else {
-            alert("Password does not match...");
+            alert("Password does not match");
             // setIsFormInvalid(true) 
         }}
         const data = new FormData(event.currentTarget); // to get all form datas
