@@ -4,38 +4,56 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import {Typography} from '@mui/material'
 import { useState,useEffect } from 'react';
+import Axios from 'axios';
+const server_base_url = "http://localhost:3001/";
+const ContactComponent =() => {
+ 
+  // const { userData } = props;
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    Axios.get('http://localhost:3001/api/users')
+      .then(response => {
+        setUsers(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching users:', error);
+      });
+  }, []);
+    
 
-const ContactComponent =(props) => {
-  const { userData } = props;
-  function Contacts({ contacts, changeChat }){
-    const [currentSelected, setCurrentSelected] = useState(undefined);
-  }
-  useEffect(async () => {
-    const data = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    );
+  // function Contacts({ contacts, changeChat }){
+  
+  // }
+  // useEffect(async () => {
+  //   const data = await JSON.parse(
+  //     localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+  //   );
   
     
-  }, []);
-  const changeCurrentChat = (index, contact) => {
-    setCurrentSelected(index);
-    changeChat(contact);
-  };
+  // }, []);
+  // const changeCurrentChat = (index, contact) => {
+  //   setCurrentSelected(index);
+  //   changeChat(contact);
+  // };
   return ( 
     
     <Box>
-      <Avatar src={userData.profilePic}/>
+      {/* <Avatar src={userData.profilePic}/> */}
       
       <Box display="flex" justifyContent="space-between" width="100%">
           <Typography variant="body1" color="#d1d7db">
-              {userData.name} 
+          <ul>
+        {users.map((user, index) => (
+          <li key={index}>{user.user_name}</li>
+        ))}
+      </ul>
           </Typography>
           <Typography variant="caption" color="#d1d7db">
-             {userData.lastText}
+             {/* {userData.lastText} */}
           </Typography>
       </Box>
       <Typography variant="subtitle2" color="#d1d7db">
-        {userData.lastTextTime}
+        {/* {userData.lastTextTime} */}
       </Typography>
       <Box
           width="100%"

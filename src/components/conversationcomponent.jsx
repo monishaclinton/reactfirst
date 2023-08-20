@@ -1,15 +1,30 @@
-import { Avatar, Box ,Input, Typography} from "@mui/material";
-import React from 'react'
+
+import React from 'react';
+
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Avatar from '@mui/material/Avatar';
+import Fab from '@mui/material/Fab';
+import SendIcon from '@mui/icons-material/Send';
 import { messagesList } from "./data/contactlist";
 
+const  ConversationComponent= () => {
+  
 
-const ConversationComponent = () => {
-    return (
-    <Box>
-        <Box>
+  return (
+      <div>
+        <Grid container>
+             <Grid item xs={12} >
+            
         
-        Anubhav Sharma
-        </Box>
         <Box>
             {messagesList.map((messageData) => (
                 <Typography isYours={messageData.senderID === 0}>
@@ -18,13 +33,18 @@ const ConversationComponent = () => {
             ))}
             
         </Box>
-        <Box alignitems="bottom">
-            
-            {/* <Image src={"/data.svg"}/> */}
-            <Input placeholder="Type a message"/>
-            
-        </Box>
-        </Box>
-    );
-};
+                <Grid container style={{padding: '20px'}}>
+                    <Grid item xs={11}>
+                        <TextField id="outlined-basic-email" placeholder='Send Message' fullWidth />
+                    </Grid>
+                    <Grid xs={1} align="right">
+                        <Fab color="primary" aria-label="add"><SendIcon /></Fab>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+      </div>
+  );
+}
+
 export default ConversationComponent;
