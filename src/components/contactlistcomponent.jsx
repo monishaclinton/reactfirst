@@ -6,18 +6,26 @@ import {Typography} from '@mui/material'
 import { useState,useEffect } from 'react';
 import Axios from 'axios';
 const server_base_url = "http://localhost:3001/";
-const ContactComponent =() => {
+const ContactComponent =(event) => {
  
   // const { userData } = props;
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    Axios.get('/api/users/users_firstname')
-      .then(response => {
-        setUsers(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching users:', error);
-      });
+    Axios.post(server_base_url + "get_user_row", data, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then((response) => {
+      console.log(response.data)
+
+      if (response.data[0]) {
+        alert("Logined As : " + response.data[0].user_firstname );
+      
+    
+      }
+    });
+
+  
   }, []);
     
 
