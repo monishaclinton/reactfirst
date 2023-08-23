@@ -10,51 +10,38 @@ const ContactComponent =(event) => {
  
   // const { userData } = props;
   const [users, setUsers] = useState([]);
-  useEffect(() => {
-    Axios.post(server_base_url + "get_user_row", data, {
+  
+    const data = new FormData(event.currentTarget);
+    Axios.post(server_base_url + "get_user_name", data, {
       headers: {
         "Content-Type": "application/json"
       }
-    }).then((response) => {
+    })
+    
+    .then((response) => {
+      setUsers(response.data);
       console.log(response.data)
 
-      if (response.data[0]) {
-        alert("Logined As : " + response.data[0].user_firstname );
-      
-    
-      }
+      .catch(error => {
+        console.error(error);
+      });
     });
 
-  
-  }, []);
-    
 
-  // function Contacts({ contacts, changeChat }){
+
   
-  // }
-  // useEffect(async () => {
-  //   const data = await JSON.parse(
-  //     localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-  //   );
-  
-    
-  // }, []);
-  // const changeCurrentChat = (index, contact) => {
-  //   setCurrentSelected(index);
-  //   changeChat(contact);
-  // };
   return ( 
     
     <Box>
-      {/* <Avatar src={userData.profilePic}/> */}
+       {/* <Avatar src={userData.profilePic}/>  */}
       
       <Box display="flex" justifyContent="space-between" width="100%">
           <Typography variant="body1" color="#d1d7db">
-          <ul>
+          
         {users.map((user, index) => (
-          <li key={index}>{user.user_name}</li>
+          <p key={index}>{user.user_firstname} {user.user_lastname}</p>
         ))}
-      </ul>
+      
           </Typography>
           <Typography variant="caption" color="#d1d7db">
              {/* {userData.lastText} */}
