@@ -11,7 +11,7 @@ const ContactComponent =() => {
   // const { userData } = props;
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    Axios.get('http://localhost:3001/api/users')
+    Axios.get('/api/users/users_firstname')
       .then(response => {
         setUsers(response.data);
       })
