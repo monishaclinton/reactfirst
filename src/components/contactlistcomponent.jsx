@@ -6,7 +6,7 @@ import {Typography} from '@mui/material'
 import { useState,useEffect } from 'react';
 import Axios from 'axios';
 const server_base_url = "http://localhost:3001/";
-const ContactComponent =(event) => {
+const ContactListComponent =(event) => {
  
   // const { userData } = props;
   const [users, setUsers] = useState([]);
@@ -30,15 +30,15 @@ const ContactComponent =(event) => {
 
 
   
-  return ( 
+  return (  
     
     <Box>
-       {/* <Avatar src={userData.profilePic}/>  */}
+        <Avatar />  
       
       <Box display="flex" justifyContent="space-between" width="100%">
-          <Typography variant="body1" color="#d1d7db">
+          <Typography variant="body1" color="#d1d7db" width="100%">
           
-        {users.map((user, index) => (
+          {users.map((user, index) => (
           <p key={index}>{user.user_firstname} {user.user_lastname}</p>
         ))}
       
@@ -61,17 +61,18 @@ const ContactComponent =(event) => {
   );
 };
 
-const ContactListComponent = () => {
+// const ContactListComponent = () => {
 
-  return( 
-      <Box>
-      {/* <Box>
-          <Avatar src= "/profile/profilephoto.jpeg"/>
-      </Box> */}
-      {contactList.map((userData)=>(
-      <ContactComponent userData={userData}/>
-      ))}
-        </Box>
-  );
-};
+//   return( 
+//       <Box>
+//       <Box>
+//           <Avatar src= "/profile/profilephoto.jpeg"/>
+//       </Box>
+//       {contactList.map((userData)=>(
+//       <ContactComponent userData={userData}/>
+//       ))}
+        
+//         </Box>
+//   );
+// };
 export default ContactListComponent;
