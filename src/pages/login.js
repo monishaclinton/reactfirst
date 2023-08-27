@@ -37,6 +37,7 @@ export default function Login() {
       if (response.data[0]) {
         alert("Logined As : " + response.data[0].user_firstname +' '+ response.data[0].user_lastname);
         sessionStorage.setItem('sess_user_name',response.data[0].user_firstname +' '+ response.data[0].user_lastname)
+        sessionStorage.setItem('sess_user_id',response.data[0].user_id)
         window.location.replace('http://localhost:3000/chatcontainer');
       }else{
         alert('Invalid Username or Password')

@@ -6,13 +6,13 @@ import ConversationComponent from './conversationcomponent';
 const Chatbox=() =>{
   return (
     <Box>
-       <Appbar/>
-    <Box   overflow="auto"
+     
+    {/* <Box   overflow="auto"
     height="90%"
     > 
    
     </Box>
-    < ConversationComponent/>
+    < ConversationComponent/> */}
     </Box>
   )
 }

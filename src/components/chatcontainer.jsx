@@ -1,24 +1,21 @@
 import React from 'react'
 import Chatbox from './chatbox'
-import  Leftmenu  from './leftmenu'
+import Leftmenu from './leftmenu'
 import Box from '@mui/material/Box';
-const Chatcontainer=() =>{
+import  Appbar  from './appbar';
+import ContactListComponent from './contactlistcomponent';
+const Chatcontainer = () => {
   return (
     <div>
-      <Box display="flex" flexdirection="row" height="100vh">
-      <Box width="40%"  sx={{
-      background: "#101b20",
-    }}>
-      <Leftmenu />
-      </Box> 
-      <Box width="60%"  sx={{
-    background: "#101b20",
-    border: ".05px solid #2f3b44",
-    }}>
-      <Chatbox />
+      <Box >
+      <Appbar/>
+        <Box width="100%" sx={{ background: "#101b20", }}>
+          <ContactListComponent />
+        </Box>
+
+
       </Box>
-      </Box>
-      
+
     </div>
   )
 }

@@ -16,8 +16,7 @@ body{
 }
 .css-e4w4as-MuiFormLabel-root-MuiInputLabel-root{
     color:white !important;
-    
-}
-p.MuiTypography-root.MuiTypography-body1.css-1x4oupy-MuiTypography-root p {
+} 
+p.MuiTypography-root.MuiTypography-body1.css-1x4oupy-MuiTypography-root  span {
     border-bottom: 2px solid #2f3b44 !important;
 }

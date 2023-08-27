@@ -2,13 +2,14 @@ const express = require("express");
 const mysql = require("mysql")
 const app = express();
 const http = require('http');
+const bodyParser = require('body-parser');
 const socketIo = require('socket.io');
 const server = http.createServer(app);
 const io = socketIo(server);
 // const multer = require('multer');
 app.use(express.json());
 var cors = require('cors')
-var bodyParser = require('body-parser')
+
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
@@ -44,10 +45,6 @@ app.post('/register_user', cors(), (req, res) => { //post method
         }
         //Sql output return to react server
     });
-
-
-
-
 });
 app.post('/get_user_row', cors(), (req, res) => { //post method
     var sql = "SELECT *  FROM `users` WHERE `user_email` = '" + req.body['email'] + "' AND `user_password` = '" + req.body['password'] + "'";
@@ -56,84 +53,46 @@ app.post('/get_user_row', cors(), (req, res) => { //post method
     });
 
 });
-app.post('/get_user_name', cors(), (req, res) => { //post method
-    
-    var sql = "SELECT `user_firstname`, `user_lastname` FROM `users` WHERE 1"
+app.get('/get_user_name', cors(), (req, res) => { //post method
+    var sql = "SELECT `user_id`,`user_firstname`, `user_lastname` FROM `users` "
     con.query(sql, function (err, result) {
         res.send(result); //Sql output return to react server
     });
-
 });
 
-  
-  
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, 'uploads/');
-//     },
-//     filename: function (req, file, cb) {
-//         cb(null, file.originalname);
-//     }
-// });
-// const upload = multer({ storage: storage });
-// app.post('/upload', upload.single('image'), (req, res) => {
-//     const imageUrl = `http://localhost:${port}/uploads/${req.file.filename}`;
-//     con.query('INSERT INTO `users`(`image_name`) VALUES (?)', [imageUrl], (err, result) => {
-//         if (err) {
-//             console.error(err);
-//             res.status(500).send(err);
-//         } else {
-//             res.status(200).send('Image uploaded and URL saved.');
-//         }
-//     });
-// });
-
-// app.get('/image', (req, res) => {
-//     con.query('SELECT `image_name` FROM `users` WHERE 1 ORDER BY id DESC LIMIT 1', (err, result) => {
-//         if (err) {
-//             console.error(err);
-//             res.status(500).send(err);
-//         } else {
-//             res.json({ imageUrl: result[0].image_url });
-//         }
-//     });
-// });
-// io.on('connection', (socket) => {
-//     console.log('A user connected');
-  
-//     // Handle incoming messages
-//     socket.on('send_message', async (data) => {
-//       // Store the message in the database
-//       const { senderId, recipientId, message } = data;
-//       await db.query('INSERT INTO messages (sender_id, recipient_id, message) VALUES (?, ?, ?)', [senderId, recipientId, message]);
-  
-//       // Broadcast the message to the recipient's WebSocket connection
-//       const recipientSocket = io.sockets.connected[recipientId];
-//       if (recipientSocket) {
-//         recipientSocket.emit('new_message', data);
-//       }
-//     });
-  
-//     socket.on('disconnect', () => {
-//       console.log('A user disconnected');
-//     });
-//   });
-  
-wss.on('connection', (ws) => {
-    console.log('Client connected');
-  
-    ws.on('message', (message) => {
-      console.log('Received:', message);
-  
-      wss.clients.forEach((client) => {
-        if (client !== ws && client.readyState === WebSocket.OPEN) {
-          console.log('Sending:', message);
-          client.send(message);
-        }
-      });
+app.post('/get_message_by_userid', cors(), (req, res) => {
+    var sql = "SELECT * FROM `chat_messages` WHERE (`sender_id` = '" + req.body['sender_id'] + "' AND `receiver_id` = '" + req.body['receiver_id'] + "') or(`sender_id` = '" + req.body['receiver_id'] + "' AND `receiver_id` = '" + req.body['sender_id'] + "')";
+    con.query(sql, function (err, result) {
+        res.send(result); 
     });
-  });
+});
+
+
+app.post('/insert_chat_message',cors(), (req, res) => {
+
+    var sql = "INSERT INTO `chat_messages` (`chat_id`, `sender_id`, `receiver_id`, `message_text`, `date_time`) VALUES (NULL, '" + req.body['sender_id'] + "', '" + req.body['receiver_id'] + "', '" + req.body['chat_message'] + "', '');";
+    con.query(sql, function (err, result) {
+            res.send('Message sent successfully');  
+        });
+           
+
+ 
+});
+
+app.get('/api/messages', (req, res) => {
+    const { senderId, receiverId } = req.query;
+    const query = `SELECT * FROM messages WHERE (sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?)`;
+
+    connection.query(query, [senderId, receiverId, receiverId, senderId], (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error fetching messages');
+        } else {
+            res.json(results);
+        }
+    });
+});
+
 app.listen(3001, () => {
     console.log("running server");
-
 });
