@@ -1,5 +1,5 @@
 body{
-    background-color: black;
+    background-color:#101b20 !important;
 }
 .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
     color:white !important;
@@ -20,3 +20,21 @@ body{
 p.MuiTypography-root.MuiTypography-body1.css-1x4oupy-MuiTypography-root  span {
     border-bottom: 2px solid #2f3b44 !important;
 }
+.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-6.MuiGrid-grid-md-3.css-1unik2p-MuiGrid-root {
+    border-right: 2px solid #1f2c33 !important ;
+}
+header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAppBar-colorPrimary.MuiAppBar-positionFixed.mui-fixed.css-ciy9n4-MuiPaper-root-MuiAppBar-root,
+.css-hyum1k-MuiToolbar-root{
+    background: #1f2c33;
+}
+main.css-yfo96e{
+    padding: 0px ;
+}
+
+/* button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit.MuiIconButton-edgeEnd.MuiIconButton-sizeMedium.css-1ei1svh-MuiButtonBase-root-MuiIconButton-root{
+    width: 80%;
+    max-width: 80%
+} */
+ul {
+    list-style-type: none;
+  }

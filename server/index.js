@@ -53,11 +53,33 @@ app.post('/get_user_row', cors(), (req, res) => { //post method
     });
 
 });
-app.get('/get_user_name', cors(), (req, res) => { //post method
-    var sql = "SELECT `user_id`,`user_firstname`, `user_lastname` FROM `users` "
+app.post('/get_user_details', cors(), (req, res) => { //post method
+    var sql = "SELECT `user_email`, `user_phnno`, `user_dob`FROM `users` WHERE `user_email` = '"  + req.body['email'] + "' AND `user_phnno` = '"  + req.body['phnno'];
     con.query(sql, function (err, result) {
         res.send(result); //Sql output return to react server
     });
+
+});
+app.get('/get_user_name', cors(), (req, res) => { 
+    var sql = "SELECT `user_id`,`user_firstname`, `user_lastname` FROM `users`"
+    con.query(sql, function (err, result) {
+        res.send(result); //Sql output return to react server
+    });
+});
+app.get('/get_user_name_user', cors(), (req, res) => { 
+   var sql="SELECT `friends_id` FROM `users` WHERE `user_id` = '"+req.query['user_id']+"'";
+   con.query(sql, function (err, result) {
+    if(req.query['name_filter']==""){
+        var sql = "SELECT `user_id`,`user_firstname`, `user_lastname` FROM `users` WHERE `user_id` IN ("+result[0].friends_id+")"
+    }else{
+        var sql = "SELECT `user_id`,`user_firstname`, `user_lastname` FROM `users` WHERE `user_id` IN ("+result[0].friends_id+") AND (`user_firstname` LIKE '%"+req.query['name_filter']+"%' OR `user_lastname` LIKE '%"+req.query['name_filter']+"%')"
+        // res.send(sql)
+    }
+    
+    con.query(sql, function (err, result) {
+        res.send(result); //Sql output return to react server
+    });
+});
 });
 
 app.post('/get_message_by_userid', cors(), (req, res) => {

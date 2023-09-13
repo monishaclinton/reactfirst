@@ -16,12 +16,13 @@ import SendIcon from '@mui/icons-material/Send';
 import { messagesList } from "./data/contactlist";
 import Axios from 'axios';
 import { Button } from '@mui/material';
-// const ws = new WebSocket('ws://localhost:8080');
+
 
 const server_base_url = "http://localhost:3001/";
 
 const ConversationComponent = (props) => {
     const [input, setInput] = useState('');
+  
     // const [messages, props_msg] = useState([]);
     // useEffect(() => {
     //     ws.onmessage = (event) => {
