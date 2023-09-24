@@ -1,5 +1,5 @@
 import React from 'react';
-import { contactList } from './data/contactlist';
+
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import { Typography, Grid, Divider } from '@mui/material'
@@ -77,7 +77,7 @@ const ContactListComponent = (event, user, changeChat) => {
         <Box
         display="flex"
         sx={{
-          background: "#1f2c33",
+          // background: "#1f2c33",
           borderRadius: "8px",
           padding: "0px 8px",
           margin: "10px 0px",
@@ -107,7 +107,7 @@ const ContactListComponent = (event, user, changeChat) => {
             placeholder="Search or start a new chat"
             sx={{
               height: "35px",
-              color: "white",
+              // color: "white",
               padding: "0px 13px",
               fontSize: "14px",
               width: "100%"
@@ -128,7 +128,7 @@ const ContactListComponent = (event, user, changeChat) => {
           />
         </IconButton>
       </Box>
-          <Typography color="#d1d7db">
+          <Typography >
 
             {users.map((user, index) => (
 

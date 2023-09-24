@@ -1,32 +1,32 @@
 body{
-    background-color:#101b20 !important;
+    /* background-color:#101b20 !important; */
 }
-.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
+/* .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
     color:white !important;
 
    border:1px solid white !important;
-}
-.textfield {
+} */
+/* .textfield {
     background-color: #000;
     color: green;
-}
-.css-10botns-MuiInputBase-input-MuiFilledInput-input{
+} */
+/* .css-10botns-MuiInputBase-input-MuiFilledInput-input{
     border:1px solid white !important;
     color:white !important;
-}
-.css-e4w4as-MuiFormLabel-root-MuiInputLabel-root{
+} */
+/* .css-e4w4as-MuiFormLabel-root-MuiInputLabel-root{
     color:white !important;
-} 
-p.MuiTypography-root.MuiTypography-body1.css-1x4oupy-MuiTypography-root  span {
+}  */
+/* p.MuiTypography-root.MuiTypography-body1.css-1x4oupy-MuiTypography-root  span {
     border-bottom: 2px solid #2f3b44 !important;
-}
+} */
 .MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-6.MuiGrid-grid-md-3.css-1unik2p-MuiGrid-root {
-    border-right: 2px solid #1f2c33 !important ;
+    border-right: 1px solid #afbac0 !important ;
 }
-header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAppBar-colorPrimary.MuiAppBar-positionFixed.mui-fixed.css-ciy9n4-MuiPaper-root-MuiAppBar-root,
+/* header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAppBar-colorPrimary.MuiAppBar-positionFixed.mui-fixed.css-ciy9n4-MuiPaper-root-MuiAppBar-root,
 .css-hyum1k-MuiToolbar-root{
     background: #1f2c33;
-}
+} */
 main.css-yfo96e{
     padding: 0px ;
 }
@@ -38,3 +38,6 @@ main.css-yfo96e{
 ul {
     list-style-type: none;
   }
+  .MuiBox-root.css-1xtq8t5 {
+    border: 1px solid #afbac0;
+}

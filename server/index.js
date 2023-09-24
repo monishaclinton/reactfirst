@@ -7,6 +7,19 @@ const socketIo = require('socket.io');
 const server = http.createServer(app);
 const io = socketIo(server);
 // const multer = require('multer');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); // Destination folder for uploads
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, uniqueSuffix + '-' + file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
 app.use(express.json());
 var cors = require('cors')
 
@@ -44,7 +57,7 @@ app.post('/register_user', cors(), (req, res) => { //post method
             });
         }
         //Sql output return to react server
-    });
+    })
 });
 app.post('/get_user_row', cors(), (req, res) => { //post method
     var sql = "SELECT *  FROM `users` WHERE `user_email` = '" + req.body['email'] + "' AND `user_password` = '" + req.body['password'] + "'";
@@ -53,10 +66,11 @@ app.post('/get_user_row', cors(), (req, res) => { //post method
     });
 
 });
-app.post('/get_user_details', cors(), (req, res) => { //post method
-    var sql = "SELECT `user_email`, `user_phnno`, `user_dob`FROM `users` WHERE `user_email` = '"  + req.body['email'] + "' AND `user_phnno` = '"  + req.body['phnno'];
+app.post('/get_user_row_by_user_id', cors(), (req, res) => { 
+    var sql =  "SELECT * FROM `users` WHERE `user_id` = ' " + req.body['userid'] + "'";
     con.query(sql, function (err, result) {
-        res.send(result); //Sql output return to react server
+        res.send(result);
+        // console.log(result);
     });
 
 });
@@ -114,7 +128,27 @@ app.get('/api/messages', (req, res) => {
         }
     });
 });
-
+app.post('/upload-image', upload.single('image'), (req, res) => {
+    // `req.file` contains information about the uploaded image
+    if (req.file) {
+      const imageUrl = '/uploads/' + req.file.filename; // This is the URL where the image is stored
+  
+      // Insert the image URL into your SQL database
+      const sql =  "INSERT INTO `users` image-name VALUES (NULL, '" + req.body['image_name'] + "')" // Adjust the SQL query as needed
+      const values = [imageUrl, req.body.userId]; // You need to pass the user ID associated with the image
+  
+      con.query(sql, values, (err, result) => {
+        if (err) {
+          console.error('Error inserting image URL:', err);
+          res.status(500).json({ message: 'Error uploading image' });
+        } else {
+          res.status(200).json({ imageUrl });
+        }
+      });
+    } else {
+      res.status(400).json({ message: 'No file uploaded' });
+    }
+  });
 app.listen(3001, () => {
     console.log("running server");
 });

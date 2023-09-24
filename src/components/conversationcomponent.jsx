@@ -13,7 +13,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 import Fab from '@mui/material/Fab';
 import SendIcon from '@mui/icons-material/Send';
-import { messagesList } from "./data/contactlist";
+
 import Axios from 'axios';
 import { Button } from '@mui/material';
 
@@ -57,7 +57,7 @@ const ConversationComponent = (props) => {
                 <Grid item xs={12} >
 
 
-                    <Box height="69vh" color="white">
+                    <Box height="69vh">
                         {props.propsArray.map((message, index) => (
                             <div key={index} align={(session_id == message.sender_id) ? 'right' : 'left'}>
                                 {message.message_text}

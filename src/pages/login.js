@@ -57,7 +57,7 @@ export default function Login() {
 
         <Box sx={{ marginTop: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center'}} >
 
-          <img src={require('../asserts/cupid-1.png')} alt="logo" width={150} height={150} />
+          <img src={require('../asserts/cupid-heart.jpg')} alt="logo" width={150} height={150} />
           <Box component="form" onSubmit={handleSubmit} >
             <TextField margin="normal" fullWidth id="email" label="Email Address" name="email" autoComplete="email" autoFocus required text variant="filled" />
             <TextField margin="normal" fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" required variant="filled" />

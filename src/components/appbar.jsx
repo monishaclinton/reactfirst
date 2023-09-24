@@ -1,8 +1,8 @@
 import IconButton from "@mui/material/IconButton";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import ChatIcon from "@mui/icons-material/Chat";
@@ -28,10 +28,15 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import Settings from "./settings";
 import Profilepage from "../profilepage";
 
-import {Grid} from '@mui/material'
+import { Grid } from '@mui/material'
+import axios from "axios";
+
 const Appbar = () => {
+  var sess_user_id = sessionStorage.getItem('sess_user_id')
   var session_username = sessionStorage.getItem('sess_user_name')
-  
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const server_base_url = "http://localhost:3001/";
+
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
   })(({ theme, open }) => ({
@@ -48,37 +53,63 @@ const Appbar = () => {
       scrollMarginLeft: drawerWidth,
     }),
   }));
-  const navigate = useNavigate();
-  const accsettings = () => {
-      navigate("/settings");
+
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      // You can add additional validation here if needed
+      const imageUrl = URL.createObjectURL(file);
+      axios.post(server_base_url +'/upload-image', { imageUrl,userid: sess_user_id } )  .then((response) => {
+        // Handle the response from the backend if needed
+        console.log('Image URL sent to the backend:', imageUrl);
+      })
+      setUploadedImage(imageUrl); // Store the uploaded image in state
+      localStorage.setItem('uploadedImage', imageUrl); // Store the image URL in localStorage
+    }
   };
   
-  const Profilepage = () => {
-      navigate("/profilepage");
+  useEffect(() => {
+    // Check if there's an image URL in localStorage
+    const imageUrl = localStorage.getItem('uploadedImage');
+    if (imageUrl) {
+    
+      setUploadedImage(imageUrl);
+    }
+  }, []);
+
+  const navigate = useNavigate();
+  const accsettings = () => {
+    navigate("/settings");
   };
+
+  const Profilepage = () => {
+    navigate("/profilepage");
+  };
+
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
   const drawerWidth = 240;
 
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -drawerWidth,
-    ...(open && {
+  const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+    ({ theme, open }) => ({
+      flexGrow: 1,
+      padding: theme.spacing(3),
       transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
       }),
-      marginLeft: 0,
+      marginLeft: -drawerWidth,
+      ...(open && {
+        transition: theme.transitions.create('margin', {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+      }),
     }),
-  }),
-);
+  );
 
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -88,136 +119,144 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     ...theme.mixins.toolbar,
     justifyContent: 'flex-start',
   }));
+
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+
   return (
-    <div> 
+    <div>
       <Box sx={{ display: 'flex' }}>
-           <CssBaseline />
-           <AppBar position="fixed" open={open}>
-           <Toolbar>
-          
+        <CssBaseline />
+        <AppBar position="fixed" open={open}>
+          <Toolbar>
 
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="end"
-            onClick={handleDrawerOpen}
-            sx={{ ...(open && { display: 'none' ,flexGrow:1}) }}
-          >
-            <MenuIcon />
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="end"
+              onClick={handleDrawerOpen}
+              sx={{ ...(open && { display: 'none', flexGrow: 1 }) }}
+            >
+              <MenuIcon />
             </IconButton>
-            <Box flex={1} pl="5px" pr="5px"  width='100%'>
-            <Box
-  width="100%"
-  height="100%"
-  display="flex"
-  justifyContent="space-between"
-  alignItems="center"
->
- 
+            <Box flex={1} pl="5px" pr="5px" width='100%'>
+              <Box
+                width="100%"
+                height="100%"
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+              >
 
-  <Box display="flex">
-    <IconButton
-      onClick={() => { }}
-      sx={{
-        paddingRight: "15px",
-      }}
-    >
-      <AddAlertIcon
-        sx={{
-          color: "#afbac0",
-        }}
-      />
-    </IconButton>
-    <IconButton
-      onClick={() => { }}
-      sx={{
-        paddingRight: "10px",
-      }}
-    >
-      <ChatIcon
-        sx={{
-          color: "#afbac0",
-        }}
-      />
-    </IconButton>
-    </Box>
-  </Box>
-</Box>
-          
-          <Box display="flex" flexDirection="column"  >
-        <Typography  color="white" fontSize="13px" padding="10px 0px" whiteSpace="nowrap">
-          {session_username.toUpperCase()}
-        </Typography>
-        </Box>
-        <Box display="flex"  flexDirection="column" pl="9px">
-         <Avatar onClick={Profilepage}/>
-         </Box>
+                <Box display="flex">
+                  <IconButton
+                    onClick={() => { }}
+                    sx={{
+                      paddingRight: "15px",
+                    }}
+                  >
+                    <AddAlertIcon
+                      sx={{
+                        color: "#afbac0",
+                      }}
+                    />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => { }}
+                    sx={{
+                      paddingRight: "10px",
+                    }}
+                  >
+                    <ChatIcon
+                      sx={{
+                        color: "#afbac0",
+                      }}
+                    />
+                  </IconButton>
+                </Box>
+              </Box>
+            </Box>
+
+            <Box display="flex" flexDirection="column"  >
+              <Typography color="white" fontSize="13px" padding="10px 0px" whiteSpace="nowrap">
+                {session_username.toUpperCase()}
+              </Typography>
+            </Box>
+            <Box display="flex"  flexDirection="column" pl="9px">
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: 'none' }}
+                id="image-upload-input"
+                onChange={handleFileUpload}
+              />
+              <label htmlFor="image-upload-input">
+                <IconButton
+                  color="inherit"
+                  aria-label="upload image"
+                  component="span"
+                >
+                  <Avatar src={uploadedImage} alt="User Avatar" /> {/* Display the uploaded image */}
+                </IconButton>
+              </label>
+            </Box>
           </Toolbar>
 
-          </AppBar>
+        </AppBar>
 
         <Main open={open} >
-        <DrawerHeader />
+          <DrawerHeader />
         </Main>
         <Drawer
-        sx={{
-          width: drawerWidth,
-          
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
+          sx={{
             width: drawerWidth,
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-      
+
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              width: drawerWidth,
+            },
+          }}
+          variant="persistent"
+          anchor="left"
+          open={open}
+        >
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List>
+
             <ListItem  disablePadding>
               <ListItemButton>
                 <ListItemIcon>
                   <Grid>
-                  <Grid xs={8}>
-                  
-                 <SettingsIcon onClick={accsettings} Settings/> 
-                  <Grid xs={4}onClick={accsettings}>Settings</Grid>
-                  </Grid>
-                   <Grid>
-                  <GroupIcon />
-                  <p>Group</p>
-                  </Grid>
+                    <Grid xs={8}>
+
+                      <SettingsIcon onClick={accsettings} Settings/>
+                      <Grid xs={4}onClick={accsettings}>Settings</Grid>
+                    </Grid>
+                    <Grid>
+                      <GroupIcon />
+                      <p>Group</p>
+                    </Grid>
                   </Grid>
                 </ListItemIcon>
-                
-                  
                 <ListItemText />
               </ListItemButton>
             </ListItem>
-          
-        </List>
-        <Divider />
+
+          </List>
+          <Divider />
         </Drawer>
-        </Box>
- 
-
-
-
-
-       
-       </div>
+      </Box>
+    </div>
   );
 }
+
 export default Appbar;
-  
