@@ -60,7 +60,8 @@ const ConversationComponent = (props) => {
                     <Box height="69vh">
                         {props.propsArray.map((message, index) => (
                             <div key={index} align={(session_id == message.sender_id) ? 'right' : 'left'}>
-                                {message.message_text}
+                                <span style={{marginTop:"5px"}} className='btn btn-secondary btn-sm'> &nbsp;  {message.message_text}&nbsp;</span>
+                              
                             </div>
                         ))}
                         <div align="right" id='main_chat_div'></div>

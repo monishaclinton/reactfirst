@@ -5,7 +5,7 @@ import Register from './register';
 import Chatcontainer from '../components/chatcontainer';
 import { BrowserRouter as Router, Route, Link as Rlink, Routes } from "react-router-dom";
 import Settings  from '../components/settings';
-import Profilepage from '../profilepage';
+import Profilepage from './profilepage';
 
 function Home() {
   

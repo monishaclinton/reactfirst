@@ -32,12 +32,13 @@ export default function Login() {
         "Content-Type": "application/json"
       }
     }).then((response) => {
-      console.log(response.data)
+      // console.log(response.data)
 
       if (response.data[0]) {
         alert("Logined As : " + response.data[0].user_firstname +' '+ response.data[0].user_lastname);
         sessionStorage.setItem('sess_user_name',response.data[0].user_firstname +' '+ response.data[0].user_lastname)
         sessionStorage.setItem('sess_user_id',response.data[0].user_id)
+        sessionStorage.setItem('uploadedImage', response.data[0].image_name);
         window.location.replace('http://localhost:3000/chatcontainer');
       }else{
         alert('Invalid Username or Password')

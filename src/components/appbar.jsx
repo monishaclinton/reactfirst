@@ -26,10 +26,10 @@ import Toolbar from '@mui/material/Toolbar';
 import Drawer from '@mui/material/Drawer';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Settings from "./settings";
-import Profilepage from "../profilepage";
+import Profilepage from "../pages/profilepage";
 
 import { Grid } from '@mui/material'
-import axios from "axios";
+import Axios from 'axios';
 
 const Appbar = () => {
   var sess_user_id = sessionStorage.getItem('sess_user_id')
@@ -55,26 +55,28 @@ const Appbar = () => {
   }));
 
   const handleFileUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      // You can add additional validation here if needed
-      const imageUrl = URL.createObjectURL(file);
-      axios.post(server_base_url +'/upload-image', { imageUrl,userid: sess_user_id } )  .then((response) => {
-        // Handle the response from the backend if needed
-        console.log('Image URL sent to the backend:', imageUrl);
-      })
-      setUploadedImage(imageUrl); // Store the uploaded image in state
-      localStorage.setItem('uploadedImage', imageUrl); // Store the image URL in localStorage
+
+
+    if (event.target.files[0]) {
+      try {
+        var file = event.target.files[0];
+        const imageUrl = URL.createObjectURL(file);
+        setUploadedImage(imageUrl); // Store the uploaded image in state
+        const formData = new FormData();
+        formData.append('image', file);
+        Axios.post(server_base_url + "upload-image?userid=" + sess_user_id, formData).then((response) => {
+          sessionStorage.setItem('uploadedImage', response.data.image_url);
+          })
+      } catch (error) {
+        console.error('Error creating object URL:', error);
+      }
     }
+
+
   };
-  
   useEffect(() => {
-    // Check if there's an image URL in localStorage
-    const imageUrl = localStorage.getItem('uploadedImage');
-    if (imageUrl) {
-    
-      setUploadedImage(imageUrl);
-    }
+    const profile_image_url = sessionStorage.getItem('uploadedImage');
+    setUploadedImage(profile_image_url);
   }, []);
 
   const navigate = useNavigate();
@@ -186,7 +188,7 @@ const Appbar = () => {
                 {session_username.toUpperCase()}
               </Typography>
             </Box>
-            <Box display="flex"  flexDirection="column" pl="9px">
+            <Box display="flex" flexDirection="column" pl="9px">
               <input
                 type="file"
                 accept="image/*"
@@ -232,20 +234,21 @@ const Appbar = () => {
           <Divider />
           <List>
 
-            <ListItem  disablePadding>
+            <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  <Grid>
-                    <Grid xs={8}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={4} >
 
-                      <SettingsIcon onClick={accsettings} Settings/>
-                      <Grid xs={4}onClick={accsettings}>Settings</Grid>
-                    </Grid>
-                    <Grid>
+                      <SettingsIcon onClick={accsettings} /></Grid>
+                    <Grid item xs={8} onClick={accsettings}>Settings</Grid>
+
+                    <Grid item xs={4}>
                       <GroupIcon />
-                      <p>Group</p>
                     </Grid>
+                    <Grid item xs={8}>Group</Grid>
                   </Grid>
+
                 </ListItemIcon>
                 <ListItemText />
               </ListItemButton>
