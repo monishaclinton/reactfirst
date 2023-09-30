@@ -38,7 +38,7 @@ const ConversationComponent = (props) => {
     const sendMessage = () => {
         var input_sent_message = document.getElementById('input_sent_message').value;
         if (input_sent_message != '') {
-            document.getElementById('main_chat_div').innerHTML += "<p><span style='background-color:#484848de;border-radius:5px'>" + input_sent_message + "</span></p>";
+            document.getElementById('main_chat_div').innerHTML += "<p><span >" + input_sent_message + "</span></p>";
             document.getElementById('input_sent_message').value = "";
 
             Axios.post(server_base_url + "insert_chat_message", { receiver_id: props.receiverid, sender_id: session_id, chat_message: input_sent_message }).then((response) => {
@@ -54,21 +54,21 @@ const ConversationComponent = (props) => {
     return (
         <div>
             <Grid container>
-                <Grid item xs={12} >
+                <Grid item xs={12} style={{}} >
 
 
-                    <Box height="69vh">
+                    <Box height="69vh" overflow="scroll"  word-break="break-all">
                         {props.propsArray.map((message, index) => (
                             <div key={index} align={(session_id == message.sender_id) ? 'right' : 'left'}>
                                 <span style={{marginTop:"5px"}} className='btn btn-secondary btn-sm'> &nbsp;  {message.message_text}&nbsp;</span>
                               
                             </div>
                         ))}
-                        <div align="right" id='main_chat_div'></div>
+                        <div align="right" id='main_chat_div' style={{backgroundColor:"#484848de",borderRadius:"5px",marginTop:"5px"}}></div>
                     </Box>
                     <Grid container style={{ padding: '20px' }}>
                         <Grid item xs={11}>
-                            <TextField placeholder='Send Message' id='input_sent_message' fullWidth />
+                            <textarea placeholder='Send Message' id='input_sent_message'  style={{ width: '100%' }} />
 
 
                         </Grid>

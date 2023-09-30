@@ -125,22 +125,8 @@ const ContactListComponent = (event, user, changeChat) => {
 
               }}
             />
-
-
-
-            <IconButton onClick={() => { }}>
-              <FilterListIcon
-                sx={{
-                  color: "#8696a1",
-                  height: "20px",
-                  width: "20px",
-                }}
-              />
-            </IconButton>
-          </Box>
-
-
-          {users.map((user, index) => (
+         </Box>
+             {users.map((user, index) => (
 
             <div key={index} style={{ display: (session_id != user.user_id) ? 'block' : 'none', }} onClick={() => handleUserSelection(user)}> <IconButton>
               <Avatar src={user.image_name} alt={user.user_firstname.toUpperCase()} ></Avatar>

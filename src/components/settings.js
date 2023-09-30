@@ -19,7 +19,7 @@ function Settings() {
           color: "#afbac0",
         }}
       />
-      <p style={{color:"white"}}>Notification</p>
+      <p style={{}}>Notification</p>
       </IconButton>
     </div>
   )

@@ -41,3 +41,11 @@ ul {
   .MuiBox-root.css-1xtq8t5 {
     border: 1px solid #afbac0;
 }
+.MuiBox-root.css-1q6ii00{
+    word-break: break-word;
+    overflow-x:hidden;
+    overflow-y: scroll;
+}
+span.btn.btn-secondary.btn-sm {
+    text-align: right;
+}

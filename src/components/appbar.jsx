@@ -9,6 +9,8 @@ import ChatIcon from "@mui/icons-material/Chat";
 import DonutLargeIcon from "@mui/icons-material/DonutLarge";
 import { Input } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
 import { styled, useTheme } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 import List from '@mui/material/List';
@@ -27,16 +29,33 @@ import Drawer from '@mui/material/Drawer';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Settings from "./settings";
 import Profilepage from "../pages/profilepage";
+import CloseIcon from '@mui/icons-material/Close';
+import Slide from '@mui/material/Slide';
+import Dialog from '@mui/material/Dialog';
+import AppBar from '@mui/material/AppBar';
+import button from '@mui/material'
+
 
 import { Grid } from '@mui/material'
 import Axios from 'axios';
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props}  />;
+});
 const Appbar = () => {
+  
   var sess_user_id = sessionStorage.getItem('sess_user_id')
   var session_username = sessionStorage.getItem('sess_user_name')
   const [uploadedImage, setUploadedImage] = useState(null);
+    
   const server_base_url = "http://localhost:3001/";
-
+  const [openmodal, setOpenModal] = React.useState(false);
+  const handleOpen = () => setOpenModal(true);
+  const handleClose = () => {
+    
+    setOpenModal(false);
+    console.log('Closing dialog');
+  };
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
   })(({ theme, open }) => ({
@@ -82,7 +101,7 @@ const Appbar = () => {
   const navigate = useNavigate();
   const accsettings = () => {
     navigate("/settings");
-  };
+  }; 
 
   const Profilepage = () => {
     navigate("/profilepage");
@@ -128,7 +147,20 @@ const Appbar = () => {
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+  
+  
+ 
   return (
     <div>
       <Box sx={{ display: 'flex' }}>
@@ -188,13 +220,60 @@ const Appbar = () => {
                 {session_username.toUpperCase()}
               </Typography>
             </Box>
+        
             <Box display="flex" flexDirection="column" pl="9px">
               <input
                 type="file"
                 accept="image/*"
                 style={{ display: 'none' }}
                 id="image-upload-input"
+                
                 onChange={handleFileUpload}
+                
+              />
+                
+              <label htmlFor="image-upload-input">
+                <IconButton
+                  color="inherit"
+                  aria-label="upload image"
+                  component="span"
+                  
+                  onClick={handleOpen}
+                >
+                  <Avatar src={uploadedImage} alt="User Avatar" /> 
+                  </IconButton>
+              </label>
+              <div>
+                  <Dialog
+        fullScreen
+        open={openmodal}
+        onClose={handleClose}
+        TransitionComponent={Transition}
+        
+        
+      >
+          <AppBar sx={{ position: 'relative' }}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+              Change Profile Picture
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Box display="flex" flexDirection="column" pl="9px">
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: 'none' }}
+                id="image-upload-input"
+                onClick={handleFileUpload}
               />
               <label htmlFor="image-upload-input">
                 <IconButton
@@ -205,9 +284,16 @@ const Appbar = () => {
                   <Avatar src={uploadedImage} alt="User Avatar" /> {/* Display the uploaded image */}
                 </IconButton>
               </label>
+              <Button onClick="/profilepage">profile</Button>
+              
+            </Box>
+      </Dialog>
+    
+  
+      </div> 
             </Box>
           </Toolbar>
-
+          
         </AppBar>
 
         <Main open={open} >
@@ -234,25 +320,23 @@ const Appbar = () => {
           <Divider />
           <List>
 
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <Grid container spacing={2}>
+            
+                  <Grid container spacing={2} onClick={accsettings}>
                     <Grid item xs={4} >
 
-                      <SettingsIcon onClick={accsettings} /></Grid>
-                    <Grid item xs={8} onClick={accsettings}>Settings</Grid>
+                      <SettingsIcon /></Grid>
+                    <Grid item xs={8} >Settings</Grid>
+                    </Grid>
+                    <Grid container spacing={2} style={{marginTop:"10px"}}>
 
-                    <Grid item xs={4}>
+                    <Grid item xs={4} >
                       <GroupIcon />
                     </Grid>
-                    <Grid item xs={8}>Group</Grid>
-                  </Grid>
+                    <Grid item xs={8} >Group</Grid>
+                    </Grid>
 
-                </ListItemIcon>
-                <ListItemText />
-              </ListItemButton>
-            </ListItem>
+               
+            
 
           </List>
           <Divider />
