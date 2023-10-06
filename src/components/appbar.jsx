@@ -34,28 +34,39 @@ import Slide from '@mui/material/Slide';
 import Dialog from '@mui/material/Dialog';
 import AppBar from '@mui/material/AppBar';
 import button from '@mui/material'
-
-
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { PaperProps } from "@mui/material";
 import { Grid } from '@mui/material'
 import Axios from 'axios';
+import Login from "../pages/login";
+import { SignalCellularNull } from "@mui/icons-material";
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props}  />;
-});
 const Appbar = () => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
   
   var sess_user_id = sessionStorage.getItem('sess_user_id')
   var session_username = sessionStorage.getItem('sess_user_name')
   const [uploadedImage, setUploadedImage] = useState(null);
     
   const server_base_url = "http://localhost:3001/";
-  const [openmodal, setOpenModal] = React.useState(false);
-  const handleOpen = () => setOpenModal(true);
-  const handleClose = () => {
-    
-    setOpenModal(false);
-    console.log('Closing dialog');
-  };
+  
+  
+   
+    const openmodal = Boolean(anchorEl);
+    const handleClick = (event) => {
+      console.log('Button clicked:', event.currentTarget);
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      console.log('Menu closed');
+      setAnchorEl(null);
+
+    };
+  
+
+
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
   })(({ theme, open }) => ({
@@ -99,6 +110,10 @@ const Appbar = () => {
   }, []);
 
   const navigate = useNavigate();
+  const Logout = () => {
+    navigate("/login");
+  };
+  
   const accsettings = () => {
     navigate("/settings");
   }; 
@@ -106,7 +121,7 @@ const Appbar = () => {
   const Profilepage = () => {
     navigate("/profilepage");
   };
-
+ 
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -141,24 +156,13 @@ const Appbar = () => {
     justifyContent: 'flex-start',
   }));
 
-  const [open, setOpen] = React.useState(false);
+  
   const theme = useTheme();
 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
-  
+
   
  
   return (
@@ -222,80 +226,56 @@ const Appbar = () => {
             </Box>
         
             <Box display="flex" flexDirection="column" pl="9px">
-              <input
-                type="file"
-                accept="image/*"
-                style={{ display: 'none' }}
-                id="image-upload-input"
+            
+         
+      <div>
+    
+      
                 
-                onChange={handleFileUpload}
-                
-              />
-                
-              <label htmlFor="image-upload-input">
+              
                 <IconButton
-                  color="inherit"
-                  aria-label="upload image"
-                  component="span"
-                  
-                  onClick={handleOpen}
+                  id="demo-positioned-button"
+                  aria-controls={openmodal ? 'demo-positioned-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={openmodal ? 'true' : undefined}
+                  onClick={handleClick}
+                
+                  // onClick={handleOpen}
                 >
                   <Avatar src={uploadedImage} alt="User Avatar" /> 
                   </IconButton>
-              </label>
-              <div>
-                  <Dialog
-        fullScreen
+               
+              <Menu
+              
+        id="demo-positioned-menu"
+       
+        anchorEl={anchorEl}
         open={openmodal}
         onClose={handleClose}
-        TransitionComponent={Transition}
-        
+ 
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+       
         
       >
-          <AppBar sx={{ position: 'relative' }}>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
-              <CloseIcon />
-            </IconButton>
-            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Change Profile Picture
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Box display="flex" flexDirection="column" pl="9px">
-              <input
-                type="file"
-                accept="image/*"
-                style={{ display: 'none' }}
-                id="image-upload-input"
-                onClick={handleFileUpload}
-              />
-              <label htmlFor="image-upload-input">
-                <IconButton
-                  color="inherit"
-                  aria-label="upload image"
-                  component="span"
-                >
-                  <Avatar src={uploadedImage} alt="User Avatar" /> {/* Display the uploaded image */}
-                </IconButton>
-              </label>
-              <Button onClick="/profilepage">profile</Button>
-              
-            </Box>
-      </Dialog>
-    
-  
-      </div> 
+        <MenuItem onClick={Profilepage}>Profile</MenuItem>
+        <MenuItem onClick={Logout}>My account</MenuItem>
+        <MenuItem onClick={Logout}>Logout</MenuItem>
+      </Menu>
+     
+      </div>
+             
             </Box>
           </Toolbar>
           
-        </AppBar>
-
+        
+          </AppBar>
         <Main open={open} >
           <DrawerHeader />
         </Main>
@@ -341,6 +321,7 @@ const Appbar = () => {
           </List>
           <Divider />
         </Drawer>
+        
       </Box>
     </div>
   );

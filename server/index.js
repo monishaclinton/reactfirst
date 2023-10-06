@@ -152,6 +152,31 @@ app.post('/upload-image', upload.single('image'), cors(), (req, res) => {
         res.status(400).json({ message: 'No file uploaded' });
     }
 });
+app.post('/update_user', cors(), (req, res) => {
+    const { userid, firstName, lastName, email, mobileNumber, dateOfBirth } = req.body;
+
+    // Build an SQL query to update user details
+    const sql = `
+        UPDATE users
+        SET
+            user_firstname = ?,
+            user_lastname = ?,
+            user_email = ?,
+            user_phnno = ?,
+            user_dob = ?
+        WHERE user_id = ?
+    `;
+
+    con.query(sql, [firstName, lastName, email, mobileNumber, dateOfBirth, userid], (err, result) => {
+        if (err) {
+            console.error('Error updating user details:', err);
+            res.status(500).json({ message: 'Error updating user details' });
+        } else {
+            res.json({ message: 'User details updated successfully' });
+        }
+    });
+});
+
 app.listen(3001, () => {
     console.log("running server");
 });

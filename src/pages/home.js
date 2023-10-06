@@ -18,6 +18,7 @@ function Home() {
       <Routes>
       
         <Route exact path="/" element={<Login/>} />
+        <Route exact path="login" element={<Login/>} />
         <Route exact path="/chatcontainer" element={<Chatcontainer />} />
         <Route exact path="Register" element={<Register />} />
         <Route exact path="settings" element={<Settings />} />

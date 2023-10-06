@@ -1,25 +1,4 @@
-body{
-    /* background-color:#101b20 !important; */
-}
-/* .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
-    color:white !important;
 
-   border:1px solid white !important;
-} */
-/* .textfield {
-    background-color: #000;
-    color: green;
-} */
-/* .css-10botns-MuiInputBase-input-MuiFilledInput-input{
-    border:1px solid white !important;
-    color:white !important;
-} */
-/* .css-e4w4as-MuiFormLabel-root-MuiInputLabel-root{
-    color:white !important;
-}  */
-/* p.MuiTypography-root.MuiTypography-body1.css-1x4oupy-MuiTypography-root  span {
-    border-bottom: 2px solid #2f3b44 !important;
-} */
 .MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-6.MuiGrid-grid-md-3.css-1unik2p-MuiGrid-root {
     border-right: 1px solid #afbac0 !important ;
 }
@@ -31,10 +10,10 @@ main.css-yfo96e{
     padding: 0px ;
 }
 
-/* button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit.MuiIconButton-edgeEnd.MuiIconButton-sizeMedium.css-1ei1svh-MuiButtonBase-root-MuiIconButton-root{
-    width: 80%;
-    max-width: 80%
-} */
+button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+    text-align: right;
+    width: 87px;
+}
 ul {
     list-style-type: none;
   }
@@ -48,4 +27,19 @@ ul {
 }
 span.btn.btn-secondary.btn-sm {
     text-align: right;
+}
+/* .MuiPaper-root.MuiMenu-paper.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
+    top: 39px ;
+    right: 8px;
+} */
+.css-10nakn3-MuiModal-root-MuiPopover-root-MuiMenu-root{
+    position: fixed;
+    z-index: 1300;
+    right: 85px;
+    bottom:0px;
+    top: 0;
+    left: 21em;
+}
+.container-sm, .container{
+    margin-top: 76px;
 }
